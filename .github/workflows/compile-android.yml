@@ -30,7 +30,6 @@ jobs:
 
       - name: Run Yarn Install
         run: |
-             npm i -g corepack
              yarn install
 
       - name: Build application
